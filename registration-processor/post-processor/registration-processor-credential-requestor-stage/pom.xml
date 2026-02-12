@@ -107,6 +107,40 @@
 			<groupId>io.mosip.biometric.util</groupId>
 			<artifactId>biometrics-util</artifactId>
 			<version>${biometrics.util.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-databind</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-annotations</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.dataformat</groupId>
+					<artifactId>jackson-dataformat-yaml</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>io.projectreactor</groupId>
+					<artifactId>reactor-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springdoc</groupId>
+					<artifactId>springdoc-openapi-ui</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springdoc</groupId>
+					<artifactId>springdoc-openapi-webmvc-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>io.mosip.kernel</groupId>
+					<artifactId>kernel-logger-logback</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 	<build>
