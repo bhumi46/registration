@@ -1,6 +1,8 @@
 package io.mosip.registration.processor.credentialrequestor.stage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.mosip.biometrics.util.ConvertRequestDto;
+import io.mosip.biometrics.util.face.FaceDecoder;
 import io.mosip.kernel.biometrics.entities.BIR;
 import io.mosip.kernel.biometrics.entities.BiometricRecord;
 import io.mosip.kernel.core.exception.BaseUncheckedException;
@@ -457,13 +459,13 @@ public class CredentialRequestorStage extends MosipVerticleAPIManager {
 				if ("Face".equalsIgnoreCase(bir.getBdbInfo().getType().get(0).value())) {
 					byte[] isoBytes = bir.getBdb();
 
-//					ConvertRequestDto convertRequestDto = new ConvertRequestDto();
-//					convertRequestDto.setInputBytes(isoBytes);
-//					convertRequestDto.setVersion("ISO19794_5_2011");
-//
-//					byte[] imageBytes = FaceDecoder.convertFaceISOToImageBytes(convertRequestDto);
+					ConvertRequestDto convertRequestDto = new ConvertRequestDto();
+					convertRequestDto.setInputBytes(isoBytes);
+					convertRequestDto.setVersion("ISO19794_5_2011");
 
-					String faceBase64 = Base64.getEncoder().encodeToString(isoBytes);
+					byte[] imageBytes = FaceDecoder.convertFaceISOToImageBytes(convertRequestDto);
+
+					String faceBase64 = Base64.getEncoder().encodeToString(imageBytes);
 
 					fieldMap.put("face", faceBase64);
 					regProcLogger.info(LoggerFileConstant.SESSIONID.toString(), LoggerFileConstant.REGISTRATIONID.toString(), regId,
