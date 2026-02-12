@@ -474,10 +474,14 @@ public class CredentialRequestorStage extends MosipVerticleAPIManager {
 			}
 
 			return fieldMap;
-		} catch (Exception e) {
-			regProcLogger.error(LoggerFileConstant.SESSIONID.toString(), LoggerFileConstant.REGISTRATIONID.toString(), regId,
-					"Failed to extract credential fields: " + e.getMessage()
+		} catch (Throwable t) {
+			regProcLogger.error(
+					LoggerFileConstant.SESSIONID.toString(),
+					LoggerFileConstant.REGISTRATIONID.toString(),
+					regId,
+					"Failed to extract credential fields (Throwable): " + t
 			);
+			t.printStackTrace();
 			return Collections.emptyMap();
 		}
 	}
