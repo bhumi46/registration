@@ -456,15 +456,24 @@ public class CredentialRequestorStage extends MosipVerticleAPIManager {
 			List<BIR> segments = biometricRecord.getSegments();
 
 			for (BIR bir : segments) {
+				regProcLogger.info(LoggerFileConstant.SESSIONID.toString(), LoggerFileConstant.REGISTRATIONID.toString(), regId,
+						"Segments found...");
 				if ("Face".equalsIgnoreCase(bir.getBdbInfo().getType().get(0).value())) {
+					regProcLogger.info(LoggerFileConstant.SESSIONID.toString(), LoggerFileConstant.REGISTRATIONID.toString(), regId,
+							"Modality found...");
 					byte[] isoBytes = bir.getBdb();
 
 					ConvertRequestDto convertRequestDto = new ConvertRequestDto();
 					convertRequestDto.setInputBytes(isoBytes);
 					convertRequestDto.setVersion("ISO19794_5_2011");
 
+					regProcLogger.info(LoggerFileConstant.SESSIONID.toString(), LoggerFileConstant.REGISTRATIONID.toString(), regId,
+							"Calling FaceDecoder...");
+
 					byte[] imageBytes = FaceDecoder.convertFaceISOToImageBytes(convertRequestDto);
 
+					regProcLogger.info(LoggerFileConstant.SESSIONID.toString(), LoggerFileConstant.REGISTRATIONID.toString(), regId,
+							"Base64 encoding the imageBytes...");
 					String faceBase64 = Base64.getEncoder().encodeToString(imageBytes);
 
 					fieldMap.put("face", faceBase64);
